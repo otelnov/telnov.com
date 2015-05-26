@@ -4,8 +4,11 @@ let ngModule = angular.module('tc', [
   'oc.lazyLoad'
 ]);
 
-ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
-  ($stateProvider, $urlRouterProvider, $httpProvider) => {
+ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
+  ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) => {
+
+    $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix('!');
 
     $urlRouterProvider.otherwise('/');
     $httpProvider.interceptors.push('AuthInterceptor');

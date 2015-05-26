@@ -10,7 +10,7 @@ module.exports = function (app) {
 	var config = app.get('config');
 	var jwtSecret = config.JWT_SECRET;
 
-	app.get('/users/current', function (req, res) {
+	app.get('/api/users/current', function (req, res) {
 		if (req.user && req.user.email) {
 			Users.findOne({
 				email: req.user.email
@@ -31,9 +31,9 @@ module.exports = function (app) {
 
 	});
 
-	app.post('/users/register', register, auth, _.noop);
+	app.post('/api/users/register', register, auth, _.noop);
 
-	app.post('/users/login', login, auth, _.noop);
+	app.post('/api/users/login', login, auth, _.noop);
 
 	function auth(req, res) {
 		var user = req.userData;
