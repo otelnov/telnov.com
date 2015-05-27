@@ -1,1 +1,166 @@
-admin
+<nav class="navbar navbar-fixed-top">
+  <div class="container">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href ng-click="vm.logout()">Вийти</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <br/>
+
+  <ul class="nav nav-pills" role="tablist">
+    <li role="presentation" ng-class="{active: vm.activeMenu==='main'}">
+      <a href ng-click="vm.activeMain()">Головна <span class="badge">{{vm.guestCount}}</span></a>
+    </li>
+    <li role="presentation" ng-class="{active: vm.activeMenu==='help'}">
+      <a href ng-click="vm.activeHelp()">Допомога <span class="badge">{{vm.help.length}}</span></a>
+    </li>
+    <li role="presentation" ng-class="{active: vm.activeMenu==='wishlist'}">
+      <a href ng-click="vm.activeWishlist()">Вішліст <span class="badge">{{vm.wishlist.length}}</span></a>
+    </li>
+    <li role="presentation" ng-class="{active: vm.activeMenu==='comments'}">
+      <a href ng-click="vm.activeComments()">Коментарі <span class="badge">{{vm.comments.length}}</span></a>
+    </li>
+    <li role="presentation" ng-class="{active: vm.activeMenu==='news'}">
+      <a href ng-click="vm.activeNews()">Новини <span class="badge">{{vm.news.length}}</span></a>
+    </li>
+  </ul>
+
+
+  <div class="admin-guests" ng-if="vm.activeMenu==='main'">
+    <h2>Гості</h2>
+
+    <div class="row head">
+      <div class="col-md-1">
+        №
+      </div>
+      <div class="col-md-2">
+        Ім'я
+      </div>
+      <div class="col-md-2">
+        Email
+      </div>
+      <div class="col-md-1">
+        Кількість осіб
+      </div>
+      <div class="col-md-2">
+        Гості
+      </div>
+      <div class="col-md-4">
+        Подарунок
+      </div>
+    </div>
+
+    <div class="row" ng-repeat="guest in vm.guests">
+      <div class="col-md-1">
+        {{$index+1}}
+      </div>
+      <div class="col-md-2">
+        {{guest.name}}
+      </div>
+      <div class="col-md-2">
+        {{guest.email}}
+      </div>
+      <div class="col-md-1">
+        {{guest.guests.length+1}}
+      </div>
+      <div class="col-md-2">
+        <p ng-repeat="g in guest.guests">{{g.name}}</p>
+      </div>
+      <div class="col-md-4">
+        <p ng-repeat="p in guest.presents"><strong>{{p.status}}:</strong> {{p.title}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-help" ng-if="vm.activeMenu==='help'">
+    <h2>Допомога</h2>
+
+    <div class="row">
+      <div class="col-md-5">
+        <textarea class="form-control" placeholder="Опис" rows="8"
+                  ng-model="vm.newHelp"></textarea>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-2">
+        <buttom ng-click="vm.addHelp()" class="btn btn-primary">Додати</buttom>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="row help" ng-repeat="help in vm.help">
+      <div class="col-md-1">{{$index+1}}</div>
+      <div class="col-md-11">{{help.text}}</div>
+    </div>
+
+  </div>
+
+  <div class="admin-wishlist" ng-if="vm.activeMenu==='wishlist'">
+    <h2>Вішліст</h2>
+
+    <div class="row">
+      <div class="col-md-5">
+        <textarea class="form-control" placeholder="Опис" rows="8"
+                  ng-model="vm.newWish"></textarea>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-2">
+        <buttom ng-click="vm.addWish()" class="btn btn-primary">Додати</buttom>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="row wishlist" ng-repeat="wish in vm.wishlist">
+      <div class="col-md-1">{{$index+1}}</div>
+      <div class="col-md-7">{{wish.text}}</div>
+      <div class="col-md-4">{{wish.user}}</div>
+    </div>
+
+  </div>
+
+  <div class="admin-comments" ng-if="vm.activeMenu==='comments'">
+    <h2>Коментарі</h2>
+
+    <br/>
+
+    <div class="row comments" ng-repeat="comment in vm.comments">
+      <div class="col-md-1">{{$index+1}}</div>
+      <div class="col-md-7">{{comment.text}}</div>
+      <div class="col-md-4">{{comment.user}}</div>
+    </div>
+
+  </div>
+
+  <div class="admin-news" ng-if="vm.activeMenu==='news'">
+    <h2>Новини</h2>
+
+    <div class="row">
+      <div class="col-md-5">
+        <textarea class="form-control" placeholder="Текст новини" rows="8"
+                  ng-model="vm.newNews"></textarea>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-2">
+        <buttom ng-click="vm.addNews()" class="btn btn-primary">Додати</buttom>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="row news" ng-repeat="news in vm.news">
+      <div class="col-md-1">{{$index+1}}</div>
+      <div class="col-md-11">{{news.text}}</div>
+    </div>
+
+  </div>
+</div>

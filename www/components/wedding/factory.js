@@ -6,7 +6,8 @@ export default ngModule => {
 
       return {
         login: login,
-        register: register
+        register: register,
+        guests: guests
       };
 
       function login(data, cb) {
@@ -26,6 +27,15 @@ export default ngModule => {
             cb(false, response);
           }, err=> {
             cb(err.data);
+          });
+      }
+
+      function guests(cb) {
+        $http.get(api + '/guests/all')
+          .then(response=> {
+            cb(false, response.data.users);
+          }, err=> {
+            cb(err);
           });
       }
     }

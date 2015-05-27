@@ -1,1 +1,196 @@
-main
+<nav class="navbar  navbar-fixed-top">
+  <div class="container">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href ng-click="vm.logout()">Вийти</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <h1 class="text-center">Вітаємо!</h1>
+  <br/>
+
+  <div class="row">
+    <div class="col-md-6 guests">
+      <h3>Гості</h3>
+
+      <div class="row" ng-repeat="guest in vm.guests">
+        <div class="col-md-2">Гість {{$index+1}}</div>
+        <div class="col-md-10">{{guest.name}}</div>
+      </div>
+
+      <div class="row" ng-if="vm.showAddPerson">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <input type="text" ng-model="vm.newPersonName" placeholder="Прізвище та ім'я гостя" class="form-control"/>
+        </div>
+      </div>
+
+      <div class="row" ng-if="!vm.showAddPerson">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          <button class="btn btn-default btn-block" ng-click="vm.showAddPerson=true">
+            <span class="glyphicon glyphicon-plus"></span> Додати особу
+          </button>
+        </div>
+      </div>
+
+      <div class="row" ng-if="vm.showAddPerson === true">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          <button class="btn btn-success btn-block" ng-click="vm.addPerson()">
+            Додати
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-warning btn-block" ng-click="vm.showAddPerson=false">
+            Відмінити
+          </button>
+        </div>
+      </div>
+
+      <br/><br/>
+
+      <h3>Залишити коментар</h3>
+
+      <div class="row">
+        <div class="col-md-10">
+          <textarea class="form-control" placeholder="Ваші зауваження, питання чи коментарі" rows="6"
+                    ng-model="vm.userComment"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10">
+          <button class="btn btn-success" ng-click="vm.sendComment()">Надіслати</button>
+        </div>
+      </div>
+
+      <br/><br/>
+
+      <h3>Новини</h3>
+
+      <div class="row">
+        <div class="col-md-2">18 травня</div>
+        <div class="col-md-8">
+          ssdkfnlsk njklsnfgk jlnsdjkf gnkljsdnfg kjlsndflkg nslkjdnfg lksndfkjg nsdkfn glkjsdnfgk ljsnd
+          sdfgnskdfngjksndfk gnskjldfn kljgsndfkj ngkljs dnfglkjnsdlkjfgn lsknfglkjsdnf glkjnsdfkljgnsdlkjnf
+          sdklfj ngkljsdnfglkjsndfklgjnsdkljfng kljsdnfgkljsndfkljgnslkjn
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">15 травня</div>
+        <div class="col-md-8">
+          ssdkfnlsk njklsnfgk jlnsdjkf gnkljsdnfg kjlsndflkg nslkjdnfg lksndfkjg nsdkfn glkjsdnfgk ljsnd
+          sdfgnskdfngjksndfk gnskjldfn kljgsndfkj ngkljs dnfglkjnsdlkjfgn lsknfglkjsdnf glkjnsdfkljgnsdlkjnf
+          sdklfj ngkljsdnfglkjsndfklgjnsdkljfng kljsdnfgkljsndfkljgnslkjn
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+      <h3>Допомога</h3>
+
+      <p>fasfs gskdfgb sbdf jgkbjdf</p>
+      <ul>
+        <li>dsfsdsdfgs</li>
+        <li>dsfsdsdfgs ajhsdbf jabsd fljskjl fksljfg lkjsdf glkjsdfkjlg slkjdfgn lkjsdfng ljksdbfglkjsbflk gbsdlkjf
+          gbslkjb
+        </li>
+        <li>dsfsdsdfgs</li>
+      </ul>
+
+      <br/><br/>
+
+      <h3>Вішліст</h3>
+
+      <p>фтиважлтф ижвтажф тивжатж фитвжа тфживта жфтива тфидвтатви адлтф иджватдт фждивт адфжитва джфтивда т</p>
+
+      <p> фтилотафиловта жфтивдал тфдивта дтфивдл талдфит владтфидлвтадлфитвадтфдливтадфтпид</p>
+
+      <br/><br/>
+
+      <div class="row">
+        <div class="col-md-2"><strong>Можливо</strong></div>
+        <div class="col-md-10 noLeftPadding"><strong>Точно</strong></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+            </label>
+          </div>
+        </div>
+        <div class="col-md-10 noLeftPadding">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+              <span>Айтем один із посиланням або просто опис</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+            </label>
+          </div>
+        </div>
+        <div class="col-md-10 noLeftPadding">
+          <div class="checkbox disabled">
+            <label>
+              <input type="checkbox" value="" disabled>
+              <span>зайнятий айтем два із посиланням або просто опис</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+            </label>
+          </div>
+        </div>
+        <div class="col-md-10 noLeftPadding">
+          <div class="checkbox disabled">
+            <label>
+              <input type="checkbox" value="" disabled>
+              <span>зайнятий айтем три із посиланням або простasd asdf asndf ;kansdfkj naklsdnf kjand fjkandskjf
+              nakjsdnfkajndsf
+              kljandsfjk aо опис</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+            </label>
+          </div>
+        </div>
+        <div class="col-md-10 noLeftPadding">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+              <span>Айтем чотири із посиланням або просто опис</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
