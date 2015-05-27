@@ -49,7 +49,7 @@ module.exports = function (app) {
 		var body = req.body;
 
 		if (!body.password || !body.email || !body.name) {
-			return res.status(400).end('name, email and password are required!');
+			return res.status(400).end('Заповнено не всі обов\'язкові поля.');
 		}
 
 		Users.findOne({
@@ -60,7 +60,7 @@ module.exports = function (app) {
 			}
 
 			if (user) {
-				return res.status(400).end('user exists');
+				return res.status(400).end('Ви вже зареєстровані, перейдіть на сторінку авторизації');
 			}
 
 			var newUser = new Users({
@@ -85,7 +85,7 @@ module.exports = function (app) {
 		var body = req.body;
 
 		if (!body.email || !body.password) {
-			return res.status(400).end('email and password are required!');
+			return res.status(400).end('Заповнено не всі обов\'язкові поля.');
 		}
 
 		Users.findOne({
@@ -97,7 +97,7 @@ module.exports = function (app) {
 			}
 
 			if (!user) {
-				return res.status(401).end('email or password incorrect');
+				return res.status(401).end('Ви ще не зареєстровані або не правильно ввели дані.');
 			}
 
 			req.userData = user;

@@ -9,8 +9,8 @@ export default ngModule => {
   }]);
 
   ngModule.controller('WeddingAuthController', [
-    'WeddingFactory',
-    function (weddingFactory) {
+    'WeddingFactory', '$state',
+    function (weddingFactory, $state) {
       let vm = this;
       vm.mode = 'register';
       vm.regModel = {};
@@ -19,15 +19,28 @@ export default ngModule => {
       vm.login = login;
 
       function register() {
-        weddingFactory.register(vm.regModel, (err, resp)=> {
-          console.log(err, resp);
+        weddingFactory.register(vm.regModel, (err)=> {
+          if (!err) {
+            return $state.go('wedding.main');
+          }
+          vm.error = true;
+          vm.errorMess = err;
         });
       }
 
       function login() {
-        weddingFactory.login(vm.logModel, (err, resp)=> {
-          console.log(err, resp);
+        weddingFactory.login(vm.logModel, (err)=> {
+          if (!err) {
+            return $state.go('wedding.main');
+          }
+          vm.error = true;
+          vm.errorMess = err;
         });
+      }
+
+      vm.hideErr = ()=> {
+        vm.error = false;
+        vm.errorMess = '';
       }
     }
   ]);

@@ -3,7 +3,7 @@
 
     <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-offset-1 col-xs-10">
 
-      <form class="form-auth" ng-submit="vm.register()" ng-if="vm.mode === 'register'">
+      <form class="form-auth register" ng-submit="vm.register()" ng-if="vm.mode === 'register'">
         <h2 class="text-center">Реєстрація</h2>
 
         <label class="sr-only" for="regName">Прізвище та ім'я</label>
@@ -21,6 +21,12 @@
                placeholder="Пароль" required
                ng-model="vm.regModel.password">
         <br/>
+        <div class="alert alert-danger" role="alert" ng-if="vm.error">
+          <button type="button" class="close" aria-label="Сховати" ng-click="vm.hideErr()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{vm.errorMess}}
+        </div>
         <a href ng-click="vm.mode = 'login'">У мене вже є обліковий запис</a>
         <br/>
         <br/>
@@ -40,6 +46,12 @@
                placeholder="Пароль" required
                ng-model="vm.logModel.password">
         <br/>
+        <div class="alert alert-danger" role="alert" ng-if="vm.error">
+          <button type="button" class="close" aria-label="Сховати" ng-click="vm.hideErr()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{vm.errorMess}}
+        </div>
         <a href ng-click="vm.mode = 'register'">У мене ще немає облікового запису</a>
         <br/>
         <br/>

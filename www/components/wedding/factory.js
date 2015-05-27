@@ -15,7 +15,7 @@ export default ngModule => {
             AuthTokenFactory.setToken(response.data.token);
             cb(false, response);
           }, err=> {
-            cb(err);
+            cb(err.data);
           });
       }
 
@@ -25,7 +25,7 @@ export default ngModule => {
             AuthTokenFactory.setToken(response.data.token);
             cb(false, response);
           }, err=> {
-            cb(err);
+            cb(err.data);
           });
       }
     }
