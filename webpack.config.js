@@ -13,7 +13,7 @@ module.exports = {
   },
 
   entry: {
-    common: ['bootstrap', './css/main.css', 'angular', 'angular-ui-router', 'oclazyload', './app.js'],
+    common: ['bootstrap', 'angular', 'angular-ui-router', 'oclazyload', './app.js'],
     wedding: './components/wedding'
   },
   output: {

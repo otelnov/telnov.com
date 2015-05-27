@@ -4,11 +4,11 @@ let ngModule = angular.module('tc', [
   'oc.lazyLoad'
 ]);
 
-ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
-  ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) => {
+ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
+  ($stateProvider, $urlRouterProvider, $httpProvider) => {
 
-    $locationProvider.html5Mode(true);
-    $locationProvider.hashPrefix('!');
+    //$locationProvider.html5Mode(true);
+    //$locationProvider.hashPrefix('!');
 
     $urlRouterProvider.otherwise('/');
     $httpProvider.interceptors.push('AuthInterceptor');
@@ -20,7 +20,7 @@ ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$loca
       })
       .state('wedding', {
         abstract: true,
-        template: '<ui-view></ui-view>',
+        template: require('./components/wedding/layout.html'),
         resolve: {
           lazy: ['$ocLazyLoad', $ocLazyLoad => $ocLazyLoad.load('./build/wedding.bundle.js')]
         }
@@ -44,42 +44,34 @@ ngModule.factory('AuthTokenFactory', ['$window', ($window) => {
   let store = $window.localStorage;
   let key = 'auth-token';
 
-  function getToken() {
-    return store.getItem(key);
-  }
-
-  function setToken(token) {
-    if (token) {
-      store.setItem(key, token);
-    } else {
-      store.removeItem(key);
-    }
-  }
-
   return {
-    getToken: getToken,
-    setToken: setToken
+    getToken: ()=>store.getItem(key),
+    setToken: token=> {
+      if (token) {
+        store.setItem(key, token);
+      } else {
+        store.removeItem(key);
+      }
+    }
   };
 }]);
 
 ngModule.factory('AuthInterceptor', ['AuthTokenFactory', (AuthTokenFactory) => {
-  function addToken(config) {
-    let token = AuthTokenFactory.getToken();
-
-    if (token) {
-      config.headers = config.headers || {};
-      config.headers.Authorization = 'Bearer ' + token;
-    }
-    return config;
-  }
-
   return {
-    request: addToken
+    request: config=> {
+      let token = AuthTokenFactory.getToken();
+
+      if (token) {
+        config.headers = config.headers || {};
+        config.headers.Authorization = 'Bearer ' + token;
+      }
+      return config;
+    }
   };
 }]);
 
 ngModule.constant('conf', {
-  API_URL: 'http://localhost:8011'
+  API_URL: 'http://localhost:1488/api'
 });
 
 angular.bootstrap(document, ['tc']);

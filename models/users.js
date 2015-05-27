@@ -15,6 +15,7 @@ module.exports = function () {
 			index: true,
 			required: true
 		},
+    name: String,
 		createdAt: {
 			type: Date,
 			default: Date.now

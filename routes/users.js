@@ -28,7 +28,6 @@ module.exports = function (app) {
 		} else {
 			return res.status(503).end();
 		}
-
 	});
 
 	app.post('/api/users/register', register, auth, _.noop);
@@ -49,8 +48,8 @@ module.exports = function (app) {
 	function register(req, res, next) {
 		var body = req.body;
 
-		if (!body.password || !body.email) {
-			return res.status(400).end('email and password are required!');
+		if (!body.password || !body.email || !body.name) {
+			return res.status(400).end('name, email and password are required!');
 		}
 
 		Users.findOne({
@@ -65,6 +64,7 @@ module.exports = function (app) {
 			}
 
 			var newUser = new Users({
+        name: body.name,
 				email: body.email,
 				password: md5(body.password)
 			});
@@ -73,6 +73,8 @@ module.exports = function (app) {
 				if (err) {
 					return res.status(400).end(err);
 				}
+        user = user.toObject();
+        delete user.password;
 				req.userData = user;
 				next();
 			});
