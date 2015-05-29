@@ -7,6 +7,7 @@ export default ngModule => {
       return {
         login: login,
         register: register,
+        getCurrent: getCurrent,
         guests: guests,
         removeGuest: removeGuest,
         help: help,
@@ -19,7 +20,9 @@ export default ngModule => {
         addComment: addComment,
         addWish: addWish,
         wishlist: wishlist,
-        removeWish: removeWish
+        removeWish: removeWish,
+        addPerson: addPerson,
+        checkPerson: checkPerson
       };
 
       function login(data, cb) {
@@ -39,6 +42,15 @@ export default ngModule => {
             cb(false, response);
           }, err=> {
             cb(err.data);
+          });
+      }
+
+      function getCurrent(cb) {
+        $http.get(api + '/users/current')
+          .then(response=> {
+            cb(false, response.data);
+          }, err=> {
+            cb(err);
           });
       }
 
@@ -152,6 +164,24 @@ export default ngModule => {
 
       function removeNews(data, cb) {
         $http.delete(api + '/news?id=' + data._id)
+          .then(response=> {
+            cb(false, response.data);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function addPerson(data, cb) {
+        $http.post(api + '/users/addPerson', data)
+          .then(response=> {
+            cb(false, response.data);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function checkPerson(data, cb) {
+        $http.post(api + '/users/checkPerson', data)
           .then(response=> {
             cb(false, response.data);
           }, err=> {

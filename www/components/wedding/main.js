@@ -16,16 +16,17 @@ export default ngModule => {
       vm.logout = logout;
       vm.addPerson = addPerson;
 
-      vm.guests = [
-        {
-          name: 'Олександр Тельнов'
-        }
-      ];
+      weddengFactory.getCurrent(function (err, user) {
+        vm.guests = user.guests;
+        vm.me = user;
+      });
 
       function addPerson() {
         vm.showAddPerson = false;
-        vm.guests.push({name: vm.newPersonName});
-        vm.newPersonName = '';
+        weddengFactory.addPerson({name: vm.newPersonName, status: true}, function () {
+          vm.guests.push({name: vm.newPersonName, status: true});
+          vm.newPersonName = '';
+        });
       }
 
       function logout() {
@@ -41,6 +42,11 @@ export default ngModule => {
 
         });
       };
+
+      vm.checkGuest = function(user){
+        weddengFactory.checkPerson(user, function () {
+        });
+      }
     }
   ]);
 };

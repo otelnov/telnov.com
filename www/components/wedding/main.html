@@ -14,9 +14,16 @@
     <div class="col-md-6 guests">
       <h3>Гості</h3>
 
+      <div class="row">
+        <div class="col-md-2">Гість 1</div>
+        <div class="col-md-8">{{vm.me.name}}</div>
+      </div>
       <div class="row" ng-repeat="guest in vm.guests">
-        <div class="col-md-2">Гість {{$index+1}}</div>
-        <div class="col-md-10">{{guest.name}}</div>
+        <div class="col-md-2">Гість {{$index+2}}</div>
+        <div class="col-md-8">{{guest.name}}</div>
+        <div class="col-md-2">
+          <input type="checkbox" ng-change="vm.checkGuest(guest)" ng-model="guest.status"/>
+        </div>
       </div>
 
       <div class="row" ng-if="vm.showAddPerson">

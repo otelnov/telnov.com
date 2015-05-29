@@ -116,8 +116,34 @@ module.exports = function (app) {
   });
 
   app.delete('/api/guest', function (req, res) {
-    Users.remove({_id:req.query.id}).exec(function (err) {
+    Users.remove({_id: req.query.id}).exec(function (err) {
       res.json({error: err});
+    });
+  });
+
+  app.post('/api/users/addPerson', function (req, res) {
+    Users.findOneAndUpdate({email: req.user.email}, {
+      $push: {
+        guests: req.body
+      }
+    }, function (err, user) {
+      res.json({error: err, user: user});
+    });
+  });
+
+  app.get('/api/users/current', function (req, res) {
+    Users.findOne({email: req.user.email}).lean().exec(function (err, user) {
+      res.json({error: err, user: user});
+    });
+  });
+
+  app.post('/api/users/checkPerson', function (req, res) {
+    Users.findOneAndUpdate({email: req.user.email, 'guests.name': req.body.name}, {
+      $set: {
+        'guests.$.status': req.body.status
+      }
+    }, function (err, user) {
+      res.json({error: err, user: user});
     });
   });
 };
