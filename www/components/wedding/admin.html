@@ -45,11 +45,14 @@
       <div class="col-md-1">
         Кількість осіб
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         Гості
       </div>
-      <div class="col-md-4">
+      <div class="col-md-2">
         Подарунок
+      </div>
+      <div class="col-md-1">
+        Дія
       </div>
     </div>
 
@@ -66,11 +69,17 @@
       <div class="col-md-1">
         {{guest.guests.length+1}}
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
+        <p>{{guest.name}}</p>
         <p ng-repeat="g in guest.guests">{{g.name}}</p>
       </div>
-      <div class="col-md-4">
-        <p ng-repeat="p in guest.presents"><strong>{{p.status}}:</strong> {{p.title}}</p>
+      <div class="col-md-2">
+        <p ng-repeat="p in guest.presents">{{p.title}}</p>
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-danger" ng-click="vm.removeGuest(guest, $index)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
       </div>
     </div>
   </div>
@@ -95,7 +104,12 @@
 
     <div class="row help" ng-repeat="help in vm.help">
       <div class="col-md-1">{{$index+1}}</div>
-      <div class="col-md-11">{{help.text}}</div>
+      <div class="col-md-10">{{help.text}}</div>
+      <div class="col-md-1">
+        <button class="btn btn-danger" ng-click="vm.removeHelp(help, $index)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+      </div>
     </div>
 
   </div>
@@ -121,7 +135,12 @@
     <div class="row wishlist" ng-repeat="wish in vm.wishlist">
       <div class="col-md-1">{{$index+1}}</div>
       <div class="col-md-7">{{wish.text}}</div>
-      <div class="col-md-4">{{wish.user}}</div>
+      <div class="col-md-3">{{wish.user.name}}</div>
+      <div class="col-md-1">
+        <button class="btn btn-danger" ng-click="vm.removeWish(wish, $index)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+      </div>
     </div>
 
   </div>
@@ -134,7 +153,7 @@
     <div class="row comments" ng-repeat="comment in vm.comments">
       <div class="col-md-1">{{$index+1}}</div>
       <div class="col-md-7">{{comment.text}}</div>
-      <div class="col-md-4">{{comment.user}}</div>
+      <div class="col-md-4">{{comment.user.name}}</div>
     </div>
 
   </div>
@@ -159,7 +178,12 @@
 
     <div class="row news" ng-repeat="news in vm.news">
       <div class="col-md-1">{{$index+1}}</div>
-      <div class="col-md-11">{{news.text}}</div>
+      <div class="col-md-10">{{news.text}}</div>
+      <div class="col-md-1">
+        <button class="btn btn-danger" ng-click="vm.removeNews(news, $index)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+      </div>
     </div>
 
   </div>

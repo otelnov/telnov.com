@@ -41,7 +41,7 @@ export default ngModule => {
       vm.hideErr = ()=> {
         vm.error = false;
         vm.errorMess = '';
-      }
+      };
     }
   ]);
 };

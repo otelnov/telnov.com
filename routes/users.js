@@ -109,10 +109,15 @@ module.exports = function (app) {
     return crypto.createHash('md5').update(string).digest('hex');
   }
 
-  app.get('/api/guests/all', function (req, res) {
+  app.get('/api/guests', function (req, res) {
     Users.find().lean().exec(function (err, users) {
       res.json({error: err, users: users});
     });
   });
 
+  app.delete('/api/guest', function (req, res) {
+    Users.remove({_id:req.query.id}).exec(function (err) {
+      res.json({error: err});
+    });
+  });
 };

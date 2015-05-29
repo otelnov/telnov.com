@@ -7,7 +7,19 @@ export default ngModule => {
       return {
         login: login,
         register: register,
-        guests: guests
+        guests: guests,
+        removeGuest: removeGuest,
+        help: help,
+        removeHelp: removeHelp,
+        addHelp: addHelp,
+        news: news,
+        addNews: addNews,
+        removeNews: removeNews,
+        comments: comments,
+        addComment: addComment,
+        addWish: addWish,
+        wishlist: wishlist,
+        removeWish: removeWish
       };
 
       function login(data, cb) {
@@ -31,9 +43,117 @@ export default ngModule => {
       }
 
       function guests(cb) {
-        $http.get(api + '/guests/all')
+        $http.get(api + '/guests')
           .then(response=> {
             cb(false, response.data.users);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function help(cb) {
+        $http.get(api + '/help')
+          .then(response=> {
+            cb(false, response.data.help);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function addHelp(data, cb) {
+        $http.post(api + '/help', data)
+          .then(response=> {
+            cb(false, response.data.help);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function news(cb) {
+        $http.get(api + '/news')
+          .then(response=> {
+            cb(false, response.data.news);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function addNews(data, cb) {
+        $http.post(api + '/news', data)
+          .then(response=> {
+            cb(false, response.data.news);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function comments(cb) {
+        $http.get(api + '/comments')
+          .then(response=> {
+            cb(false, response.data.comments);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function addComment(data, cb) {
+        $http.post(api + '/comment', data)
+          .then(response=> {
+            cb(false, response.data.comment);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function removeGuest(data, cb) {
+        $http.delete(api + '/guest?id=' + data._id)
+          .then(response=> {
+            cb(false, response.data);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function removeHelp(data, cb) {
+        $http.delete(api + '/help?id=' + data._id)
+          .then(response=> {
+            cb(false, response.data);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function addWish(data, cb) {
+        $http.post(api + '/wishlist', data)
+          .then(response=> {
+            cb(false, response.data.wishlist);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function wishlist(cb) {
+        $http.get(api + '/wishlist')
+          .then(response=> {
+            cb(false, response.data.wishlist);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function removeWish(data, cb) {
+        $http.delete(api + '/wishlist?id=' + data._id)
+          .then(response=> {
+            cb(false, response.data);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function removeNews(data, cb) {
+        $http.delete(api + '/news?id=' + data._id)
+          .then(response=> {
+            cb(false, response.data);
           }, err=> {
             cb(err);
           });

@@ -9,9 +9,10 @@ export default ngModule => {
   }]);
 
   ngModule.controller('weddingMainController', [
-    'AuthTokenFactory', '$state',
-    function (authTokenFactory, $state) {
+    'AuthTokenFactory', '$state', 'WeddingFactory',
+    function (authTokenFactory, $state, weddengFactory) {
       let vm = this;
+
       vm.logout = logout;
       vm.addPerson = addPerson;
 
@@ -31,6 +32,15 @@ export default ngModule => {
         authTokenFactory.setToken();
         $state.go('wedding.auth');
       }
+
+      vm.addComment = ()=> {
+        weddengFactory.addComment({
+          text: vm.userComment,
+          userId: vm.user._id
+        }, function () {
+
+        });
+      };
     }
   ]);
 };
