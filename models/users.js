@@ -16,7 +16,10 @@ module.exports = function () {
 			required: true
 		},
     name: String,
-    guests: [],
+    guests: [{
+      name: String,
+      status: Boolean
+    }],
 		createdAt: {
 			type: Date,
 			default: Date.now

@@ -2,7 +2,6 @@ var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var Users = mongoose.model('Users');
 var crypto = require('crypto');
-var _ = require('lodash');
 
 module.exports = function (app) {
   'use strict';
@@ -30,22 +29,7 @@ module.exports = function (app) {
     }
   });
 
-  app.post('/api/users/register', register, auth, _.noop);
-
-  app.post('/api/users/login', login, auth, _.noop);
-
-  function auth(req, res) {
-    var user = req.userData;
-    var token = jwt.sign({
-      email: user.email
-    }, jwtSecret);
-    res.send({
-      token: token,
-      user: user
-    });
-  }
-
-  function register(req, res, next) {
+  app.post('/api/users/register', function (req, res, next) {
     var body = req.body;
 
     if (!body.password || !body.email || !body.name) {
@@ -79,9 +63,9 @@ module.exports = function (app) {
         next();
       });
     });
-  }
+  }, auth);
 
-  function login(req, res, next) {
+  app.post('/api/users/login', function (req, res, next) {
     var body = req.body;
 
     if (!body.email || !body.password) {
@@ -103,19 +87,15 @@ module.exports = function (app) {
       req.userData = user;
       next();
     })
-  }
+  }, auth);
 
-  function md5(string) {
-    return crypto.createHash('md5').update(string).digest('hex');
-  }
-
-  app.get('/api/guests', function (req, res) {
+  app.get('/api/users', function (req, res) {
     Users.find().lean().exec(function (err, users) {
       res.json({error: err, users: users});
     });
   });
 
-  app.delete('/api/guest', function (req, res) {
+  app.delete('/api/users', function (req, res) {
     Users.remove({_id: req.query.id}).exec(function (err) {
       res.json({error: err});
     });
@@ -131,8 +111,10 @@ module.exports = function (app) {
     });
   });
 
-  app.get('/api/users/current', function (req, res) {
-    Users.findOne({email: req.user.email}).lean().exec(function (err, user) {
+  app.put('/api/users/removePerson', function (req, res) {
+    Users.update({email: req.user.email}, {
+      $set: {guests: req.body.guests}
+    }).exec(function (err, user) {
       res.json({error: err, user: user});
     });
   });
@@ -146,4 +128,19 @@ module.exports = function (app) {
       res.json({error: err, user: user});
     });
   });
+
+  function auth(req, res) {
+    var user = req.userData;
+    var token = jwt.sign({
+      email: user.email
+    }, jwtSecret);
+    res.send({
+      token: token,
+      user: user
+    });
+  }
+
+  function md5(string) {
+    return crypto.createHash('md5').update(string).digest('hex');
+  }
 };

@@ -22,6 +22,7 @@ export default ngModule => {
         wishlist: wishlist,
         removeWish: removeWish,
         addPerson: addPerson,
+        removePerson: removePerson,
         checkPerson: checkPerson
       };
 
@@ -173,6 +174,15 @@ export default ngModule => {
 
       function addPerson(data, cb) {
         $http.post(api + '/users/addPerson', data)
+          .then(response=> {
+            cb(false, response.data);
+          }, err=> {
+            cb(err);
+          });
+      }
+
+      function removePerson(data, cb) {
+        $http.put(api + '/users/removePerson', data)
           .then(response=> {
             cb(false, response.data);
           }, err=> {

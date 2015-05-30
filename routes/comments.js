@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Comments = mongoose.model('Comments');
-var _ = require('lodash');
 
 module.exports = function (app) {
   'use strict';
@@ -10,16 +9,16 @@ module.exports = function (app) {
   app.post('/api/comment', function (req, res) {
     var body = req.body;
 
-    //if (!body.text) {
-    //  return res.status(400).end('');
-    //}
+    if (!body.text || !body.userId) {
+      return res.status(400).end('text and userId are required');
+    }
 
     var comment = new Comments({
       text: body.text,
       user: body.userId
     });
 
-    comment.save(function(err, comment){
+    comment.save(function (err, comment) {
       res.json({error: err, comment: comment});
     });
   });
@@ -30,7 +29,7 @@ module.exports = function (app) {
       .lean()
       .populate('user')
       .exec(function (err, comments) {
-      res.json({error: err, comments: comments});
-    });
+        res.json({error: err, comments: comments});
+      });
   });
 };
