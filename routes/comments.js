@@ -6,16 +6,16 @@ module.exports = function (app) {
 
   var config = app.get('config');
 
-  app.post('/api/comment', function (req, res) {
+  app.post('/api/comments', function (req, res) {
     var body = req.body;
 
-    if (!body.text || !body.userId) {
+    if (!body.text) {
       return res.status(400).end('text and userId are required');
     }
 
     var comment = new Comments({
       text: body.text,
-      user: body.userId
+      user: req.user.id
     });
 
     comment.save(function (err, comment) {

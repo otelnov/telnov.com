@@ -10,23 +10,20 @@ module.exports = function (app) {
   var jwtSecret = config.JWT_SECRET;
 
   app.get('/api/users/current', function (req, res) {
-    if (req.user && req.user.email) {
-      Users.findOne({
-        email: req.user.email
-      }).lean().exec(function (err, user) {
-        if (err) {
-          return res.status(503).end(err);
-        }
-
-        if (!user) {
-          return res.status(401).end('user not found');
-        }
-
-        res.send(user);
-      })
-    } else {
+    if (!req.user || !req.user.id) {
       return res.status(503).end();
     }
+    Users.findById(req.user.id).lean().exec(function (err, user) {
+      if (err) {
+        return res.status(503).end(err);
+      }
+
+      if (!user) {
+        return res.status(401).end('user not found');
+      }
+
+      res.send(user);
+    })
   });
 
   app.post('/api/users/register', function (req, res, next) {
@@ -95,8 +92,8 @@ module.exports = function (app) {
     });
   });
 
-  app.delete('/api/users', function (req, res) {
-    Users.remove({_id: req.query.id}).exec(function (err) {
+  app.delete('/api/users/:id', function (req, res) {
+    Users.remove({_id: req.params.id}).exec(function (err) {
       res.json({error: err});
     });
   });
@@ -119,7 +116,7 @@ module.exports = function (app) {
     });
   });
 
-  app.post('/api/users/checkPerson', function (req, res) {
+  app.put('/api/users/checkPerson', function (req, res) {
     Users.findOneAndUpdate({email: req.user.email, 'guests.name': req.body.name}, {
       $set: {
         'guests.$.status': req.body.status
@@ -132,7 +129,8 @@ module.exports = function (app) {
   function auth(req, res) {
     var user = req.userData;
     var token = jwt.sign({
-      email: user.email
+      email: user.email,
+      id: user._id
     }, jwtSecret);
     res.send({
       token: token,
@@ -143,4 +141,5 @@ module.exports = function (app) {
   function md5(string) {
     return crypto.createHash('md5').update(string).digest('hex');
   }
-};
+}
+;

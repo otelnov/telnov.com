@@ -14,16 +14,16 @@ export default ngModule => {
 
       vm.activeMain = ()=> {
         vm.activeMenu = 'main';
-        weddingFactory.guests(function (err, guests) {
-          vm.guests = guests;
+        weddingFactory.get('users', (err, data) => {
+          vm.guests = data.users;
           vm.guestCount = 0;
-          vm.guests.forEach(function (g) {
+          vm.guests.forEach((g)=> {
             vm.guestCount = vm.guestCount + 1 + g.guests.length;
           });
 
-          vm.removeGuest = function (guest, index) {
-            if (confirm('точно видалити ' + guest.name + '?')) {
-              weddingFactory.removeGuest(guest, function () {
+          vm.removeUser = (user, index)=> {
+            if (confirm('точно видалити ' + user.name + '?')) {
+              weddingFactory.remove('users', user._id, ()=> {
                 vm.guests.splice(index, 1);
               });
             }
@@ -34,76 +34,74 @@ export default ngModule => {
 
       vm.activeHelp = ()=> {
         vm.activeMenu = 'help';
-        weddingFactory.help(function (err, help) {
-          vm.help = help;
-        });
+        weddingFactory.get('help', (err, data) => {
+          vm.help = data.help;
 
-        vm.addHelp = ()=> {
-          weddingFactory.addHelp({text: vm.newHelp}, function (err, help) {
-            vm.help.push(help);
-            vm.newHelp = '';
-          });
-        };
-
-        vm.removeHelp = function (help, index) {
-          if (confirm('точно видалити ' + help.text + '?')) {
-            weddingFactory.removeHelp(help, function () {
-              vm.help.splice(index, 1);
+          vm.addHelp = ()=> {
+            weddingFactory.post('help', {text: vm.newHelp}, (err, data) => {
+              vm.help.push(data.help);
+              vm.newHelp = '';
             });
-          }
-        };
+          };
+
+          vm.removeHelp = (help, index) => {
+            if (confirm('точно видалити ' + help.text + '?')) {
+              weddingFactory.remove('help', help._id, ()=> {
+                vm.help.splice(index, 1);
+              });
+            }
+          };
+        });
       };
 
       vm.activeWishlist = ()=> {
         vm.activeMenu = 'wishlist';
 
-        weddingFactory.wishlist(function (err, wishlist) {
-          vm.wishlist = wishlist;
-        });
-
-        vm.addWish = ()=> {
-          weddingFactory.addWish({text: vm.newWish}, function (err, wish) {
-            vm.wishlist.push(wish);
-            vm.newWish = '';
-          });
-        };
-
-        vm.removeWish = function (wish, index) {
-          if (confirm('точно видалити ' + wish.text + '?')) {
-            weddingFactory.removeWish(wish, function () {
-              vm.wishlist.splice(index, 1);
+        weddingFactory.get('wishlist', (err, data) => {
+          vm.wishlist = data.wishlist;
+          vm.addWish = ()=> {
+            weddingFactory.post('wishlist', {text: vm.newWish}, (err, data) => {
+              vm.wishlist.push(data.wishlist);
+              vm.newWish = '';
             });
-          }
-        };
+          };
+
+          vm.removeWish = function (wish, index) {
+            if (confirm('точно видалити ' + wish.text + '?')) {
+              weddingFactory.remove('wishlist', wish._id, () => {
+                vm.wishlist.splice(index, 1);
+              });
+            }
+          };
+        });
       };
 
       vm.activeComments = ()=> {
         vm.activeMenu = 'comments';
-        weddingFactory.comments(function (err, comments) {
-          vm.comments = comments;
+        weddingFactory.get('comments', (err, data) => {
+          vm.comments = data.comments;
         });
       };
 
       vm.activeNews = ()=> {
         vm.activeMenu = 'news';
-        weddingFactory.news(function (err, news) {
-          vm.news = news;
-        });
-
-        vm.addNews = ()=> {
-          weddingFactory.addNews({text: vm.newNews}, function (err, news) {
-            vm.news.push(news);
-            vm.newNews = '';
-          });
-        };
-
-        vm.removeNews = function (news, index) {
-          if (confirm('точно видалити ' + news.text + '?')) {
-            weddingFactory.removeNews(news, function () {
-              vm.news.splice(index, 1);
+        weddingFactory.get('news', (err, data)=> {
+          vm.news = data.news;
+          vm.addNews = ()=> {
+            weddingFactory.post('news', {text: vm.newNews}, (err, data) => {
+              vm.news.push(data.news);
+              vm.newNews = '';
             });
-          }
-        };
+          };
+
+          vm.removeNews = function (news, index) {
+            if (confirm('точно видалити ' + news.text + '?')) {
+              weddingFactory.remove('news', news._id, ()=> {
+                vm.news.splice(index, 1);
+              });
+            }
+          };
+        });
       };
     }
   ]);

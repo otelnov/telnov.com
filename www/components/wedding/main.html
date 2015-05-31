@@ -22,7 +22,7 @@
         <div class="col-md-2">Гість {{$index+2}}</div>
         <div class="col-md-7">{{guest.name}}</div>
         <div class="col-md-1">
-          <input type="checkbox" ng-change="vm.checkGuest(guest)" ng-model="guest.status"/>
+          <input type="checkbox" ng-change="vm.checkPerson(guest)" ng-model="guest.status"/>
         </div>
         <div class="col-md-2">
           <button class="btn btn-danger" ng-click="vm.removePerson(guest, $index)">

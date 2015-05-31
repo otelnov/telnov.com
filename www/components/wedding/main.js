@@ -12,49 +12,42 @@ export default ngModule => {
     'AuthTokenFactory', '$state', 'WeddingFactory',
     function (authTokenFactory, $state, weddengFactory) {
       let vm = this;
-      weddengFactory.getCurrent(function (err, user) {
-        vm.logout = logout;
-        vm.addPerson = addPerson;
+      weddengFactory.current((err, current) => {
+        vm.guests = current.guests;
+        vm.me = current;
 
-        vm.guests = user.guests;
-        vm.me = user;
+        vm.logout = function () {
+          authTokenFactory.setToken();
+          $state.go('wedding.auth');
+        };
 
-        function addPerson() {
+        vm.addPerson = function () {
           vm.showAddPerson = false;
           weddengFactory.addPerson({name: vm.newPersonName, status: true}, function () {
             vm.guests.push({name: vm.newPersonName, status: true});
             vm.newPersonName = '';
           });
-        }
-
-        vm.addComment = ()=> {
-          weddengFactory.addComment({
-            text: vm.userComment,
-            userId: vm.user._id
-          }, function () {
-
-          });
         };
 
-        vm.checkGuest = function (user) {
-          weddengFactory.checkPerson(user, function () {
-          });
+        vm.checkPerson = function (user) {
+          weddengFactory.checkPerson(user);
         };
 
         vm.removePerson = function (user, index) {
           if (confirm('точно видалити ' + user.name + '?')) {
             vm.guests.splice(index, 1);
-            weddengFactory.removePerson({guests: vm.guests}, function (err, data) {
-
-            });
+            weddengFactory.removePerson({guests: vm.guests});
           }
         };
-      });
 
-      function logout() {
-        authTokenFactory.setToken();
-        $state.go('wedding.auth');
-      }
+        vm.addComment = function () {
+          weddengFactory.addComment({
+            text: vm.userComment
+          }, function () {
+
+          });
+        };
+      });
     }
   ]);
 };

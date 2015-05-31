@@ -29,8 +29,8 @@ module.exports = function (app) {
     });
   });
 
-  app.delete('/api/help', function (req, res) {
-    Help.remove({_id: req.query.id}).exec(function (err) {
+  app.delete('/api/help/:id', function (req, res) {
+    Help.remove({_id: req.params.id}).exec(function (err) {
       res.json({error: err});
     });
   });

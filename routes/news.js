@@ -29,8 +29,8 @@ module.exports = function (app) {
     });
   });
 
-  app.delete('/api/news', function (req, res) {
-    News.remove({_id: req.query.id}).exec(function (err) {
+  app.delete('/api/news/:id', function (req, res) {
+    News.remove({_id: req.params.id}).exec(function (err) {
       res.json({error: err});
     });
   });

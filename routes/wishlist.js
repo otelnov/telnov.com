@@ -29,8 +29,8 @@ module.exports = function (app) {
     });
   });
 
-  app.delete('/api/wishlist', function (req, res) {
-    Wishlist.remove({_id: req.query.id}).exec(function (err) {
+  app.delete('/api/wishlist/:id', function (req, res) {
+    Wishlist.remove({_id: req.params.id}).exec(function (err) {
       res.json({error: err});
     });
   });
