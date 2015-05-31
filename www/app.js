@@ -102,7 +102,7 @@ ngModule.factory('AuthInterceptor', ['AuthTokenFactory', (AuthTokenFactory) => {
 }]);
 
 ngModule.constant('config', {
-  apiUrl: 'http://localhost:1488/api'
+  apiUrl: 'http://telnov.com/api'
 });
 
 angular.bootstrap(document, ['tc']);
