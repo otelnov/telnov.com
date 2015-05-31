@@ -34,8 +34,8 @@ export default ngModule => {
 
       vm.activeHelp = ()=> {
         vm.activeMenu = 'help';
-        weddingFactory.get('help', (err, data) => {
-          vm.help = data.help;
+        weddingFactory.get('help', (error, resp) => {
+          vm.help = resp.help;
 
           vm.addHelp = ()=> {
             weddingFactory.post('help', {text: vm.newHelp}, (err, data) => {
@@ -57,8 +57,8 @@ export default ngModule => {
       vm.activeWishlist = ()=> {
         vm.activeMenu = 'wishlist';
 
-        weddingFactory.get('wishlist', (err, data) => {
-          vm.wishlist = data.wishlist;
+        weddingFactory.get('wishlist', (error, resp) => {
+          vm.wishlist = resp.wishlist;
           vm.addWish = ()=> {
             weddingFactory.post('wishlist', {text: vm.newWish}, (err, data) => {
               vm.wishlist.push(data.wishlist);
@@ -85,8 +85,8 @@ export default ngModule => {
 
       vm.activeNews = ()=> {
         vm.activeMenu = 'news';
-        weddingFactory.get('news', (err, data)=> {
-          vm.news = data.news;
+        weddingFactory.get('news', (error, resp)=> {
+          vm.news = resp.news;
           vm.addNews = ()=> {
             weddingFactory.post('news', {text: vm.newNews}, (err, data) => {
               vm.news.push(data.news);

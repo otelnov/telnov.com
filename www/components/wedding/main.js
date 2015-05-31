@@ -12,7 +12,7 @@ export default ngModule => {
     'AuthTokenFactory', '$state', 'WeddingFactory',
     function (authTokenFactory, $state, weddengFactory) {
       let vm = this;
-      weddengFactory.current((err, current) => {
+      weddengFactory.current((error, current) => {
         vm.guests = current.guests;
         vm.me = current;
 
@@ -30,13 +30,15 @@ export default ngModule => {
         };
 
         vm.checkPerson = function (user) {
-          weddengFactory.put('/users/checkPerson', user, angular.noop);
+          weddengFactory.put('/users/checkPerson', user, function () {
+          });
         };
 
         vm.removePerson = function (user, index) {
           if (confirm('точно видалити ' + user.name + '?')) {
             vm.guests.splice(index, 1);
-            weddengFactory.put('/users/removePerson', {guests: vm.guests}, angular.noop);
+            weddengFactory.put('/users/removePerson', {guests: vm.guests}, function () {
+            });
           }
         };
 
@@ -59,8 +61,8 @@ export default ngModule => {
           vm.wishlist = data.wishlist;
 
           vm.wishlist.forEach(function (w) {
-            w.my = w.user && w.user._id === vm.me._id
-          })
+            w.my = w.user && w.user._id === vm.me._id;
+          });
         });
 
         vm.checkWish = function (wish) {
