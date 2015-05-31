@@ -98,8 +98,8 @@ module.exports = function (app) {
     });
   });
 
-  app.post('/api/users/addPerson', function (req, res) {
-    Users.findOneAndUpdate({email: req.user.email}, {
+  app.put('/api/users/addPerson', function (req, res) {
+    Users.findByIdAndUpdate(req.user.id, {
       $push: {
         guests: req.body
       }

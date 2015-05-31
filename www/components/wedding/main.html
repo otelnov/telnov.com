@@ -81,21 +81,10 @@
 
       <h3>Новини</h3>
 
-      <div class="row">
-        <div class="col-md-2">18 травня</div>
+      <div class="row" ng-repeat="news in vm.news">
+        <div class="col-md-2">{{news.createdAt | date : longDate}}</div>
         <div class="col-md-8">
-          ssdkfnlsk njklsnfgk jlnsdjkf gnkljsdnfg kjlsndflkg nslkjdnfg lksndfkjg nsdkfn glkjsdnfgk ljsnd
-          sdfgnskdfngjksndfk gnskjldfn kljgsndfkj ngkljs dnfglkjnsdlkjfgn lsknfglkjsdnf glkjnsdfkljgnsdlkjnf
-          sdklfj ngkljsdnfglkjsndfklgjnsdkljfng kljsdnfgkljsndfkljgnslkjn
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-2">15 травня</div>
-        <div class="col-md-8">
-          ssdkfnlsk njklsnfgk jlnsdjkf gnkljsdnfg kjlsndflkg nslkjdnfg lksndfkjg nsdkfn glkjsdnfgk ljsnd
-          sdfgnskdfngjksndfk gnskjldfn kljgsndfkj ngkljs dnfglkjnsdlkjfgn lsknfglkjsdnf glkjnsdfkljgnsdlkjnf
-          sdklfj ngkljsdnfglkjsndfklgjnsdkljfng kljsdnfgkljsndfkljgnslkjn
+          {{news.text}}
         </div>
       </div>
 
@@ -107,11 +96,7 @@
 
       <p>fasfs gskdfgb sbdf jgkbjdf</p>
       <ul>
-        <li>dsfsdsdfgs</li>
-        <li>dsfsdsdfgs ajhsdbf jabsd fljskjl fksljfg lkjsdf glkjsdfkjlg slkjdfgn lkjsdfng ljksdbfglkjsbflk gbsdlkjf
-          gbslkjb
-        </li>
-        <li>dsfsdsdfgs</li>
+        <li ng-repeat="help in vm.help">{{help.text}}</li>
       </ul>
 
       <br/><br/>
@@ -124,80 +109,17 @@
 
       <br/><br/>
 
-      <div class="row">
-        <div class="col-md-2"><strong>Можливо</strong></div>
-        <div class="col-md-10 noLeftPadding"><strong>Точно</strong></div>
-      </div>
+      <!--<div class="row">-->
+        <!--<div class="col-md-10 noLeftPadding"><strong>Зайняти</strong></div>-->
+      <!--</div>-->
 
-      <div class="row">
-        <div class="col-md-2">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value="">
-            </label>
-          </div>
-        </div>
+      <div class="row" ng-repeat="wish in vm.wishlist">
         <div class="col-md-10 noLeftPadding">
-          <div class="checkbox">
+          <div class="checkbox" ng-class="{disabled: wish.status && !wish.my}">
             <label>
-              <input type="checkbox" value="">
-              <span>Айтем один із посиланням або просто опис</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-2">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value="">
-            </label>
-          </div>
-        </div>
-        <div class="col-md-10 noLeftPadding">
-          <div class="checkbox disabled">
-            <label>
-              <input type="checkbox" value="" disabled>
-              <span>зайнятий айтем два із посиланням або просто опис</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-2">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value="">
-            </label>
-          </div>
-        </div>
-        <div class="col-md-10 noLeftPadding">
-          <div class="checkbox disabled">
-            <label>
-              <input type="checkbox" value="" disabled>
-              <span>зайнятий айтем три із посиланням або простasd asdf asndf ;kansdfkj naklsdnf kjand fjkandskjf
-              nakjsdnfkajndsf
-              kljandsfjk aо опис</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-2">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value="">
-            </label>
-          </div>
-        </div>
-        <div class="col-md-10 noLeftPadding">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value="">
-              <span>Айтем чотири із посиланням або просто опис</span>
+              <input type="checkbox" ng-model="wish.status" ng-change="vm.checkWish(wish)"
+                     ng-disabled="wish.status && !wish.my">
+              <span>{{wish.text}}</span>
             </label>
           </div>
         </div>

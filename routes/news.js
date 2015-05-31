@@ -18,13 +18,13 @@ module.exports = function (app) {
       text: body.text
     });
 
-    news.save(function(err, news){
+    news.save(function (err, news) {
       res.json({error: err, news: news});
     });
   });
 
   app.get('/api/news', function (req, res) {
-    News.find().lean().exec(function (err, news) {
+    News.find().lean().sort('-createdAt').exec(function (err, news) {
       res.json({error: err, news: news});
     });
   });

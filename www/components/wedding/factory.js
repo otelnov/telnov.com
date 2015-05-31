@@ -31,6 +31,10 @@ export default ngModule => {
       }
 
       function current(update, cb) {
+        if (typeof cb === 'undefined') {
+          cb = update;
+        }
+
         if (me && !update) {
           return cb(null, me);
         }
@@ -60,7 +64,7 @@ export default ngModule => {
       }
 
       function put(route, data, cb) {
-        $http.post(api + route, data).then(response=> {
+        $http.put(api + route, data).then(response=> {
           cb(false, response.data);
         }, err=> cb(err));
       }

@@ -34,4 +34,15 @@ module.exports = function (app) {
       res.json({error: err});
     });
   });
+
+  app.put('/api/wishlist/checkWish', function (req, res) {
+    Wishlist.findByIdAndUpdate(req.body._id, {
+      $set: {
+        user: req.body.user,
+        status: req.body.status
+      }
+    }, function (err, wish) {
+      res.json({error: err, wish: wish});
+    });
+  });
 };

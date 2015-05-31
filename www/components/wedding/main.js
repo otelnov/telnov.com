@@ -23,27 +23,51 @@ export default ngModule => {
 
         vm.addPerson = function () {
           vm.showAddPerson = false;
-          weddengFactory.addPerson({name: vm.newPersonName, status: true}, function () {
+          weddengFactory.put('/users/addPerson', {name: vm.newPersonName, status: true}, function () {
             vm.guests.push({name: vm.newPersonName, status: true});
             vm.newPersonName = '';
           });
         };
 
         vm.checkPerson = function (user) {
-          weddengFactory.checkPerson(user);
+          weddengFactory.put('/users/checkPerson', user, angular.noop);
         };
 
         vm.removePerson = function (user, index) {
           if (confirm('точно видалити ' + user.name + '?')) {
             vm.guests.splice(index, 1);
-            weddengFactory.removePerson({guests: vm.guests});
+            weddengFactory.put('/users/removePerson', {guests: vm.guests}, angular.noop);
           }
         };
 
         vm.addComment = function () {
-          weddengFactory.addComment({
-            text: vm.userComment
-          }, function () {
+          weddengFactory.post('comments', {text: vm.userComment}, function () {
+            vm.userComment = '';
+            alert('Дякуємо');
+          });
+        };
+
+        weddengFactory.get('news', function (err, data) {
+          vm.news = data.news;
+        });
+
+        weddengFactory.get('help', function (err, data) {
+          vm.help = data.help;
+        });
+
+        weddengFactory.get('wishlist', function (err, data) {
+          vm.wishlist = data.wishlist;
+
+          vm.wishlist.forEach(function (w) {
+            w.my = w.user && w.user._id === vm.me._id
+          })
+        });
+
+        vm.checkWish = function (wish) {
+          wish.status = wish.status;
+          wish.user = wish.status ? vm.me._id : null;
+          wish.my = wish.status;
+          weddengFactory.put('/wishlist/checkWish', wish, function () {
 
           });
         };
