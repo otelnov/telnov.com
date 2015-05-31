@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = {
   context: path.join(__dirname, '/www'),
 
-  devtool: 'source-map',
+  //devtool: 'source-map',
 
   resolve: {
     alias: {
