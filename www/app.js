@@ -16,7 +16,10 @@ ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$loca
     $stateProvider
       .state('main', {
         url: '/',
-        template: 'hello'
+        template: '',
+        resolve: {
+          redirect: ['$window', $window => $window.location.href = 'https://twitter.com/otelnov']
+        }
       })
       .state('wedding', {
         abstract: true,
@@ -27,15 +30,43 @@ ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$loca
       })
       .state('wedding.main', {
         url: '/wedding',
-        template: '<wedding-main></wedding-main>'
+        template: '<wedding-main></wedding-main>',
+        resolve: {
+          user: ['$http', 'config', '$state', ($http, config, $state)=> {
+            return $http.get(config.apiUrl + '/users/current').then(
+              ()=> null, ()=> $state.go('wedding.auth')
+            );
+          }]
+        }
       })
       .state('wedding.auth', {
         url: '/wedding/auth',
-        template: '<wedding-auth></wedding-auth>'
+        template: '<wedding-auth></wedding-auth>',
+        resolve: {
+          user: ['$http', 'config', '$state', ($http, config, $state)=> {
+            return $http.get(config.apiUrl + '/users/current').then(
+              ()=> $state.go('wedding.main'),
+              ()=> null
+            );
+          }]
+        }
       })
       .state('wedding.admin', {
         url: '/wedding/admin',
-        template: '<wedding-admin></wedding-admin>'
+        template: '<wedding-admin></wedding-admin>',
+        resolve: {
+          user: ['$http', 'config', '$state', ($http, config, $state)=> {
+            return $http.get(config.apiUrl + '/users/current').then(
+                response=> {
+
+                if (response && response.data && response.data.isAdmin) {
+                  return;
+                }
+                $state.go('wedding.main');
+              }, ()=> $state.go('wedding.auth')
+            );
+          }]
+        }
       });
   }
 ]);
@@ -70,8 +101,8 @@ ngModule.factory('AuthInterceptor', ['AuthTokenFactory', (AuthTokenFactory) => {
   };
 }]);
 
-ngModule.constant('conf', {
-  API_URL: 'http://localhost:1488/api'
+ngModule.constant('config', {
+  apiUrl: 'http://localhost:1488/api'
 });
 
 angular.bootstrap(document, ['tc']);

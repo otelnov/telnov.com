@@ -1,8 +1,8 @@
 export default ngModule => {
   ngModule.factory('WeddingFactory', [
-    '$http', 'conf', 'AuthTokenFactory',
-    function ($http, conf, AuthTokenFactory) {
-      let api = conf.API_URL;
+    '$http', 'config', 'AuthTokenFactory',
+    function ($http, config, AuthTokenFactory) {
+      let api = config.apiUrl;
       let me = null;
 
       return {
