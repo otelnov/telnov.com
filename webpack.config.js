@@ -9,12 +9,14 @@ module.exports = {
   resolve: {
     alias: {
       bootstrapCSS: './lib/bootstrap/css/bootstrap.min.css',
-      bootstrapJS: './lib/bootstrap/js/bootstrap.min.js'
+      bootstrapJS: './lib/bootstrap/js/bootstrap.min.js',
+      affix: './lib/affix.js',
+      ajquery: './lib/angular-jquery.js'
     }
   },
 
   entry: {
-    common: ['bootstrapCSS', 'angular', 'bootstrapJS', 'angular-ui-router', 'oclazyload', './app.js'],
+    common: ['bootstrapCSS', 'bootstrapJS', 'angular', 'ajquery', 'affix', 'angular-ui-router', 'oclazyload', './app.js'],
     wedding: './components/wedding'
   },
   output: {
