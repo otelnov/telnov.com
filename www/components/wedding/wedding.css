@@ -278,7 +278,12 @@ section {
   padding-bottom: 10px;
 }
 
+.navbar {
+  font-size: 14px;
+}
+
 /*html {*/
+
 /*position: relative;*/
 /*min-height: 100%;*/
 /*}*/
@@ -305,22 +310,25 @@ section {
 /*color: #606060;*/
 /*}*/
 
-/*.form-auth input[type="email"] {*/
-/*border-bottom-right-radius: 0;*/
-/*border-bottom-left-radius: 0;*/
-/*}*/
-/*.form-auth input[type="password"] {*/
-/*border-top-left-radius: 0;*/
-/*border-top-right-radius: 0;*/
-/*}*/
-/*.form-auth input[type="text"] {*/
-/*border-bottom-right-radius: 0;*/
-/*border-bottom-left-radius: 0;*/
-/*}*/
-/*.form-auth.register input[type="email"] {*/
-/*border-top-left-radius: 0;*/
-/*border-top-right-radius: 0;*/
-/*}*/
+.form-auth input[type="email"] {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-auth input[type="password"] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-auth input[type="text"] {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-auth.register input[type="email"] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
 
 /*.footer {*/
 /*position: absolute;*/
