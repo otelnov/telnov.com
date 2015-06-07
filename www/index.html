@@ -4,7 +4,7 @@
     <base href="/">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Oleksandr Telnov <mail@telnov.com> (http://telnov.com/)">
     <link rel="icon" href="favicon.ico">
@@ -16,6 +16,7 @@
   </head>
   <body>
     <ui-view></ui-view>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>
     <script src="build/common.bundle.js"></script>
   </body>
 </html>

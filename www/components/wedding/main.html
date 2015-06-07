@@ -1,130 +1,177 @@
-<nav class="navbar  navbar-fixed-top">
-  <div class="container">
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href ng-click="vm.logout()">Вийти</a></li>
-    </ul>
+<div id="wrap">
+
+  <div class="header"></div>
+
+  <div class="navbar navbar-custom navbar-inverse navbar-static-top" id="nav">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav nav-justified">
+          <li><a href="#guests">Гості</a></li>
+          <li><a href="#news">Новини</a></li>
+          <li><a href="#help">Допомога</a></li>
+          <li><a href="#wishlist">Вішліст</a></li>
+          <li><a href="#map">Місце проведення</a></li>
+          <li><a href="#contacts">Контакти</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
-</nav>
 
-<div class="container">
-  <h1 class="text-center">Вітаємо!</h1>
-  <br/>
-
+  <div class="divider" id="guests"></div>
   <div class="row">
-    <div class="col-md-6 guests">
-      <h3>Гості</h3>
+    <div class="col-sm-10 col-sm-offset-1">
+      <h1>Гості</h1>
+      <hr/>
+      <p>
+        гості
+      </p>
+      <hr>
+      <div class="divider"></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <section class="bg-1">
+    <div class="col-sm-6 col-sm-offset-3 text-center"></div>
+  </section>
 
-      <div class="row">
-        <div class="col-md-2">Гість 1</div>
-        <div class="col-md-8">{{vm.me.name}}</div>
+  <div class="divider" id="news"></div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h1>Новини</h1>
+      <hr>
+      <p>
+        новини
+      </p>
+      <hr>
+      <div class="divider"></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <section class="bg-2">
+    <div class="col-sm-6 col-sm-offset-3 text-center"></div>
+  </section>
+
+  <div class="divider" id="help"></div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h1>Допомога</h1>
+      <hr>
+      <p>
+        допомога
+      </p>
+      <hr>
+      <div class="divider"></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <section class="bg-3">
+    <div class="col-sm-6 col-sm-offset-3 text-center"></div>
+  </section>
+
+  <div class="divider" id="wishlist"></div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h1>Вішліст</h1>
+      <hr>
+      <p>
+        вішліст
+      </p>
+      <hr>
+      <div class="divider"></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <section class="bg-4">
+    <div class="col-sm-6 col-sm-offset-3 text-center"></div>
+  </section>
+
+  <div class="divider" id="map"></div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h1>Місце проведення</h1>
+      <hr/>
+    </div>
+    <div id="map-canvas"></div>
+    <hr>
+    <div class="col-sm-3 pull-right">
+      <address>
+        <span id="map-input">
+        вул. Лугова, 3,<br>
+        Мала Данилівка,<br>
+        Харківська область</span>
+      </address>
+    </div>
+  </div>
+
+  <div class="divider" id="contacts"></div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h1>Контакти</h1>
+      <div class="divider"></div>
+    </div>
+    <div class="divider"></div>
+    <div class="container social">
+
+      <div class="col-sm-6 text-center social">
+        <div class="row">
+          <ul class="list-inline center-block">
+            <li><a target="_blank" href="https://facebook.com/anna.kurakova.16"><img src="components/wedding/assets/fb.png"></a></li>
+            <li><a target="_blank" href="https://vk.com/anny_kurakova"><img src="components/wedding/assets/vk.png"></a></li>
+          </ul>
+        </div>
+        <div class="row">
+          <span>Аня (050-303-60-66)</span>
+        </div>
       </div>
-      <div class="row" ng-repeat="guest in vm.guests">
-        <div class="col-md-2">Гість {{$index+2}}</div>
-        <div class="col-md-7">{{guest.name}}</div>
-        <div class="col-md-1">
-          <input type="checkbox" ng-change="vm.checkPerson(guest)" ng-model="guest.status"/>
+
+      <div class="col-sm-6 text-center social">
+        <div class="row">
+          <ul class="list-inline center-block">
+            <li><a target="_blank" href="https://facebook.com/otelnov"><img src="components/wedding/assets/fb.png"></a></li>
+            <li><a target="_blank" href="https://twitter.com/otelnov"><img src="components/wedding/assets/tw.png"></a></li>
+            <li><a target="_blank" href="https://plus.google.com/101309979629203587148"><img src="components/wedding/assets/gplus.png"></a>
+            </li>
+          </ul>
         </div>
-        <div class="col-md-2">
-          <button class="btn btn-danger" ng-click="vm.removePerson(guest, $index)">
-            <span class="glyphicon glyphicon-trash"></span>
-          </button>
-        </div>
-      </div>
-
-      <div class="row" ng-if="vm.showAddPerson">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <input type="text" ng-model="vm.newPersonName" placeholder="Прізвище та ім'я гостя" class="form-control"/>
-        </div>
-      </div>
-
-      <div class="row" ng-if="!vm.showAddPerson">
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
-          <button class="btn btn-default btn-block" ng-click="vm.showAddPerson=true">
-            <span class="glyphicon glyphicon-plus"></span> Додати особу
-          </button>
-        </div>
-      </div>
-
-      <div class="row" ng-if="vm.showAddPerson === true">
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
-          <button class="btn btn-success btn-block" ng-click="vm.addPerson()">
-            Додати
-          </button>
-        </div>
-        <div class="col-md-4">
-          <button class="btn btn-warning btn-block" ng-click="vm.showAddPerson=false">
-            Відмінити
-          </button>
-        </div>
-      </div>
-
-      <br/><br/>
-
-      <h3>Залишити коментар</h3>
-
-      <div class="row">
-        <div class="col-md-10">
-          <textarea class="form-control" placeholder="Ваші зауваження, питання чи коментарі" rows="6"
-                    ng-model="vm.userComment"></textarea>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-10">
-          <button class="btn btn-success" ng-click="vm.addComment()">Надіслати</button>
-        </div>
-      </div>
-
-      <br/><br/>
-
-      <h3>Новини</h3>
-
-      <div class="row" ng-repeat="news in vm.news">
-        <div class="col-md-2">{{news.createdAt | date : longDate}}</div>
-        <div class="col-md-8">
-          {{news.text}}
+        <div class="row">
+          <span>Саня (093-503-10-88)</span>
         </div>
       </div>
 
     </div>
-
-    <div class="col-md-6">
-
-      <h3>Допомога</h3>
-
-      <p>fasfs gskdfgb sbdf jgkbjdf</p>
-      <ul>
-        <li ng-repeat="help in vm.help">{{help.text}}</li>
-      </ul>
-
-      <br/><br/>
-
-      <h3>Вішліст</h3>
-
-      <p>фтиважлтф ижвтажф тивжатж фитвжа тфживта жфтива тфидвтатви адлтф иджватдт фждивт адфжитва джфтивда т</p>
-
-      <p> фтилотафиловта жфтивдал тфдивта дтфивдл талдфит владтфидлвтадлфитвадтфдливтадфтпид</p>
-
-      <br/><br/>
-
-      <!--<div class="row">-->
-        <!--<div class="col-md-10 noLeftPadding"><strong>Зайняти</strong></div>-->
-      <!--</div>-->
-
-      <div class="row" ng-repeat="wish in vm.wishlist">
-        <div class="col-md-10 noLeftPadding">
-          <div class="checkbox" ng-class="{disabled: wish.status && !wish.my}">
-            <label>
-              <input type="checkbox" ng-model="wish.status" ng-change="vm.checkWish(wish)"
-                     ng-disabled="wish.status && !wish.my">
-              <span>{{wish.text}}</span>
-            </label>
-          </div>
-        </div>
+    <div class="divider"></div>
+    <div class="row form-group">
+      <div class="col-sm-7 col-sm-offset-1">
+        <label for="mess">Надіслати нам повідомлення</label>
       </div>
-
     </div>
+    <div class="row form-group">
+      <div class="col-sm-7 col-sm-offset-1">
+        <textarea rows="10" class="form-control" id="mess" placeholder="Текст повідомлення"></textarea>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-sm-7 col-sm-offset-1">
+        <button class="btn btn-default pull-right">Надіслати</button>
+      </div>
+    </div>
+  </div>
+
+</div><!--/wrap-->
+
+<div id="footer">
+  <div class="container">
+    <p class="text-muted">Copyright ©2015 telnov.com</p>
   </div>
 </div>
+
+<ul class="nav pull-right scroll-top">
+  <li><a href title="Scroll to top"><i class="glyphicon glyphicon-chevron-up"></i></a></li>
+</ul>
