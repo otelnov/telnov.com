@@ -1,7 +1,9 @@
 let angular = require('angular');
 let ngModule = angular.module('tc', [
   'ui.router',
-  'oc.lazyLoad'
+  'oc.lazyLoad',
+  'mgcrea.jquery',
+  'mgcrea.bootstrap.affix'
 ]);
 
 ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',

@@ -4,16 +4,19 @@ var path = require('path');
 module.exports = {
   context: path.join(__dirname, '/www'),
 
-  //devtool: 'source-map',
+  devtool: 'source-map',
 
   resolve: {
     alias: {
-      bootstrap: './lib/bootstrap/css/bootstrap.min.css'
+      bootstrapCSS: './lib/bootstrap/css/bootstrap.min.css',
+      bootstrapJS: './lib/bootstrap/js/bootstrap.min.js',
+      affix: './lib/affix.js',
+      ajquery: './lib/angular-jquery.js'
     }
   },
 
   entry: {
-    common: ['bootstrap', 'angular', 'angular-ui-router', 'oclazyload', './app.js'],
+    common: ['bootstrapCSS', 'bootstrapJS', 'angular', 'ajquery', 'affix', 'angular-ui-router', 'oclazyload', './app.js'],
     wedding: './components/wedding'
   },
   output: {
@@ -23,7 +26,12 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common', 'common.bundle.js')
+    new webpack.optimize.CommonsChunkPlugin('common', 'common.bundle.js'),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    })
   ],
 
   module: {

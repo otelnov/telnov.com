@@ -9,9 +9,14 @@ export default ngModule => {
   }]);
 
   ngModule.controller('weddingMainController', [
-    'AuthTokenFactory', '$state', 'WeddingFactory',
-    function (authTokenFactory, $state, weddengFactory) {
+    'AuthTokenFactory', '$state', 'WeddingFactory', '$window',
+    function (authTokenFactory, $state, weddengFactory, $window) {
       let vm = this;
+
+      vm.scroll = function () {
+        $window.scrollTo(0, 0);
+      };
+
       weddengFactory.current((error, current) => {
         vm.guests = current.guests;
         vm.me = current;

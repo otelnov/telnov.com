@@ -5,5 +5,6 @@ require('./wedding.css');
 require('./factory')(ngModule);
 
 require('./auth')(ngModule);
+//require('./mainScripts');
 require('./main')(ngModule);
 require('./admin')(ngModule);
