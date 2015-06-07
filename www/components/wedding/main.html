@@ -30,9 +30,54 @@
     <div class="col-sm-10 col-sm-offset-1">
       <h1>Гості</h1>
       <hr/>
-      <p>
-        гості
-      </p>
+
+      <div class="row height50">
+        <div class="col-sm-2">Гість 1</div>
+        <div class="col-sm-4">{{vm.me.name}}</div>
+      </div>
+      <div class="row height50" ng-repeat="guest in vm.guests">
+        <div class="col-sm-2">Гість {{$index+2}}</div>
+        <div class="col-sm-4">{{guest.name}}</div>
+        <div class="col-sm-1">
+          <input type="checkbox" ng-change="vm.checkPerson(guest)" ng-model="guest.status"/>
+        </div>
+        <div class="col-sm-1">
+          <button class="btn btn-danger" ng-click="vm.removePerson(guest, $index)">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </div>
+      </div>
+      <br/>
+      <div class="row form-group" ng-if="vm.showAddPerson">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+          <input type="text" ng-model="vm.newPersonName" placeholder="Прізвище та ім'я гостя" class="form-control"/>
+        </div>
+      </div>
+
+      <div class="row form-group" ng-if="!vm.showAddPerson">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <button class="btn btn-default btn-block" ng-click="vm.showAddPerson=true">
+            <span class="glyphicon glyphicon-plus"></span> Додати особу
+          </button>
+        </div>
+      </div>
+
+      <div class="row form-group" ng-if="vm.showAddPerson === true">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <button class="btn btn-success btn-block" ng-click="vm.addPerson()">
+            Додати
+          </button>
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-warning btn-block" ng-click="vm.showAddPerson=false">
+            Відмінити
+          </button>
+        </div>
+      </div>
+
       <hr>
       <div class="divider"></div>
     </div>
