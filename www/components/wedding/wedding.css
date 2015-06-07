@@ -6,6 +6,7 @@ body {
   /* The html and body elements cannot have any padding or margin. */
   -webkit-font-smoothing: antialiased;
   font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
 }
 
 .row {
@@ -271,6 +272,12 @@ section {
 .height50 {
   min-height: 50px;
 }
+
+.pad-t-b-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 /*html {*/
 /*position: relative;*/
 /*min-height: 100%;*/
@@ -323,31 +330,33 @@ section {
 /*/!*background-color: #f5f5f5;*!/*/
 /*}*/
 
-/*.checkbox input[type=checkbox] {*/
-/*transform: scale(1.3);*/
-/*-webkit-transform: scale(1.3);*/
-/*margin-left: -40px;*/
-/*}*/
+.checkbox input[type=checkbox] {
+  transform: scale(1.3);
+  -webkit-transform: scale(1.3);
+  margin-left: -40px;
+}
 
-/*.checkbox {*/
-/*font-size: 18px;*/
-/*/!*padding-bottom: 10px;*!/*/
-/*/!*margin-left: 18px;*!/*/
-/*}*/
-/*.checkbox.disabled {*/
-/*color: #ADADAD;*/
-/*}*/
+.checkbox {
+  font-size: 18px;
+  /*padding-bottom: 10px;*/
+  /*margin-left: 18px;*/
+}
 
-/*.checkbox label {*/
-/*padding-left: 48px;*/
-/*}*/
-/*.checkbox label span{*/
-/*/!*padding-left: 20px;*!/*/
-/*}*/
+.checkbox.disabled {
+  color: #ADADAD;
+}
 
-/*.noLeftPadding{*/
-/*padding-left: 0;*/
-/*}*/
+.checkbox label {
+  padding-left: 48px;
+}
+
+.checkbox label span {
+  /*padding-left: 20px;*/
+}
+
+.noLeftPadding {
+  padding-left: 0;
+}
 
 /*.guests .row{*/
 /*padding-bottom: 10px;*/

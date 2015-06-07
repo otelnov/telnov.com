@@ -92,9 +92,14 @@
     <div class="col-sm-10 col-sm-offset-1">
       <h1>Новини</h1>
       <hr>
-      <p>
-        новини
-      </p>
+
+      <div class="row height50 pad-t-b-10" ng-repeat="news in vm.news">
+        <div class="col-sm-2">{{news.createdAt | date : longDate}}</div>
+        <div class="col-sm-8">
+          {{news.text}}
+        </div>
+      </div>
+
       <hr>
       <div class="divider"></div>
     </div>
@@ -109,9 +114,13 @@
     <div class="col-sm-10 col-sm-offset-1">
       <h1>Допомога</h1>
       <hr>
-      <p>
-        допомога
-      </p>
+
+      <p>Перелік пунктів, в яких нам може знадобитися наша допомога:</p>
+
+      <ul>
+        <li ng-repeat="help in vm.help">{{help.text}}</li>
+      </ul>
+
       <hr>
       <div class="divider"></div>
     </div>
@@ -126,9 +135,22 @@
     <div class="col-sm-10 col-sm-offset-1">
       <h1>Вішліст</h1>
       <hr>
-      <p>
-        вішліст
-      </p>
+
+      <p>Список подарунків, які ми будемо раді отримати :)</p>
+      <p>Якщо чекбокс не активний, хтось вас уже випередив</p>
+
+      <div class="row" ng-repeat="wish in vm.wishlist">
+        <div class="col-sm-10 noLeftPadding">
+          <div class="checkbox" ng-class="{disabled: wish.status && !wish.my}">
+            <label>
+              <input type="checkbox" ng-model="wish.status" ng-change="vm.checkWish(wish)"
+                     ng-disabled="wish.status && !wish.my">
+              <span>{{wish.text}}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
       <hr>
       <div class="divider"></div>
     </div>
