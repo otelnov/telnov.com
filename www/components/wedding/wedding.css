@@ -188,6 +188,7 @@ h1 {
   height: 450px;
   margin: 0;
   padding: 15px;
+  display: block;
 }
 
 .scroll-top {
