@@ -311,6 +311,24 @@ section {
 /*color: #606060;*/
 /*}*/
 
+.login{
+  padding-top: 20px;
+}
+
+.flowers {
+  background: url('assets/flowers.png') no-repeat;
+  height: 200px;
+  width: 200px;
+  /*padding-top: 15%;*/
+}
+
+.auth {
+  background: url('assets/flowers.png') no-repeat center;
+  min-height: 850px;
+  /*width: 200px;*/
+  padding-top: 250px;
+}
+
 .form-auth input[type="email"] {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
