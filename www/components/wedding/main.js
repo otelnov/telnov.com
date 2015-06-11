@@ -57,6 +57,9 @@ export default ngModule => {
     function (authTokenFactory, $state, weddengFactory, $window) {
       let vm = this;
 
+      //govnokod
+      $('body').removeClass('authBody');
+
       vm.scroll = function () {
         $window.scrollTo(0, 0);
       };

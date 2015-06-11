@@ -1,11 +1,13 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,600);
+/*@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,600);*/
 
 html,
 body {
   height: 100%;
   /* The html and body elements cannot have any padding or margin. */
   -webkit-font-smoothing: antialiased;
-  font-family: 'Open Sans', sans-serif;
+  /*font-family: 'Open Sans', sans-serif;*/
+  /*font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;*/
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
   font-size: 18px;
 }
 
@@ -311,8 +313,16 @@ section {
 /*color: #606060;*/
 /*}*/
 
+.authBody{
+  background-color: #eee;
+}
+
 .login{
   padding-top: 20px;
+}
+
+.login .h2, .login h2 {
+  font-size: 34px;
 }
 
 .flowers {

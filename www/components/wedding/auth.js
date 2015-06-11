@@ -18,6 +18,9 @@ export default ngModule => {
       vm.register = register;
       vm.login = login;
 
+      //govnokod
+      $('body').addClass('authBody');
+
       function register() {
         weddingFactory.register(vm.regModel, (err)=> {
           if (!err) {
