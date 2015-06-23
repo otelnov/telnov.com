@@ -69,6 +69,24 @@ ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$loca
             );
           }]
         }
+      })
+      .state('football', {
+        abstract: true,
+        template: require('./components/football/layout.html'),
+        resolve: {
+          lazy: ['$ocLazyLoad', $ocLazyLoad => $ocLazyLoad.load('./build/football.bundle.js')]
+        }
+      })
+      .state('football.main', {
+        url: '/football',
+        template: '<football-main></football-main>'
+        //resolve: {
+        //  user: ['$http', 'config', '$state', ($http, config, $state)=> {
+        //    return $http.get(config.apiUrl + '/users/current').then(
+        //      ()=> null, ()=> $state.go('wedding.auth')
+        //    );
+        //  }]
+        //}
       });
   }
 ]);
@@ -103,8 +121,16 @@ ngModule.factory('AuthInterceptor', ['AuthTokenFactory', (AuthTokenFactory) => {
   };
 }]);
 
-ngModule.constant('config', {
-  apiUrl: 'http://telnov.com/api'
-});
+let conf = {};
+/*eslint-disable */
+if (ON_DEV) {
+  conf.apiUrl = 'http://localhost:1488/api';
+}
+
+if (ON_PROD) {
+  conf.apiUrl = 'http://telnov.com/api';
+}
+/*eslint-enable */
+ngModule.constant('config', conf);
 
 angular.bootstrap(document, ['tc']);

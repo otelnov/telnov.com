@@ -1,0 +1,73 @@
+<div class="container football">
+  <br/>
+
+  <h3><p>Teams: Igor, Sasha, Svyat, Yura</p></h3>
+  <br/>
+  <button class="btn btn-primary"
+          ng-click="vm.new()" ng-if="!vm.tournament">Start New Tournament
+  </button>
+  <button class="btn btn-danger"
+          ng-click="vm.finish()" ng-if="vm.tournament">Finish Tournament
+  </button>
+  <br/>
+
+  <h2>Results:</h2>
+
+  <div class="row">
+    <div class="col-xs-4"><b>Name</b></div>
+    <div class="col-xs-2"><b>Games</b></div>
+    <div class="col-xs-2"><b>Points</b></div>
+  </div>
+  <div class="row" ng-repeat="res in vm.results | toArray | orderBy: '-points'">
+    <div class="col-xs-4">{{res.name}}</div>
+    <div class="col-xs-2">{{res.games}}</div>
+    <div class="col-xs-2">{{res.points}}</div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-xs-5">
+      <h2>Round 1</h2>
+      <br/>
+
+      <div class="row game" ng-repeat="game in vm.tournament.round1">
+        <div class="col-xs-3"
+             ng-class="{'bg-success': game.result[0] && game.result[1] && +game.result[0] > +game.result[1], 'bg-danger': game.result[0] && game.result[1] && +game.result[0] < +game.result[1], 'bg-info': game.result[0] && game.result[1] && (game.result[0] === game.result[1])}">
+          <b>{{game.teams[0]}}</b>
+        </div>
+        <div class="col-xs-2">VS</div>
+        <div class="col-xs-3"
+             ng-class="{'bg-success': game.result[0] && game.result[1] && +game.result[0] < +game.result[1], 'bg-danger': game.result[0] && game.result[1] && +game.result[0] > +game.result[1], 'bg-info': game.result[0] && game.result[1] && (game.result[0] === game.result[1])}">
+          <b>{{game.teams[1]}}{{game.class[1]}}</b>
+        </div>
+        <div class="col-xs-2">
+          <input class="form-control" type="text" ng-change="vm.update()" ng-model="game.result[0]"/>
+        </div>
+        <div class="col-xs-2">
+          <input class="form-control" type="text" ng-change="vm.update()" ng-model="game.result[1]"/>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-offset-2 col-xs-5">
+      <h2>Round 2</h2>
+      <br/>
+
+      <div class="row game" ng-repeat="game in vm.tournament.round2">
+        <div class="col-xs-3"
+             ng-class="{'bg-success': game.result[0] && game.result[1] && +game.result[0] > +game.result[1], 'bg-danger': game.result[0] && game.result[1] && +game.result[0] < +game.result[1], 'bg-info': game.result[0] && game.result[1] && (game.result[0] === game.result[1])}">
+          <b>{{game.teams[0]}}</b>
+        </div>
+        <div class="col-xs-2">VS</div>
+        <div class="col-xs-3"
+             ng-class="{'bg-success': game.result[0] && game.result[1] && +game.result[0] < +game.result[1], 'bg-danger': game.result[0] && game.result[1] && +game.result[0] > +game.result[1], 'bg-info': game.result[0] && game.result[1] && (game.result[0] === game.result[1])}">
+          <b>{{game.teams[1]}}</b>
+        </div>
+        <div class="col-xs-2">
+          <input class="form-control" type="text" ng-change="vm.update()" ng-model="game.result[0]"/>
+        </div>
+        <div class="col-xs-2">
+          <input class="form-control" type="text" ng-change="vm.update()" ng-model="game.result[1]"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

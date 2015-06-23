@@ -9,6 +9,7 @@ export default ngModule => {
         login: login,
         register: register,
         current: current,
+        mail: mail,
 
         get: get,
         post: post,
@@ -65,6 +66,12 @@ export default ngModule => {
 
       function put(route, data, cb) {
         $http.put(api + route, data).then(response=> {
+          cb(false, response.data);
+        }, err=> cb(err));
+      }
+
+      function mail(data, cb) {
+        $http.post(api + '/sendEmail', data).then(response=> {
           cb(false, response.data);
         }, err=> cb(err));
       }

@@ -37,6 +37,9 @@
       <div class="row height50">
         <div class="col-sm-2">Гість 1</div>
         <div class="col-sm-4">{{vm.me.name}}</div>
+        <div class="col-sm-1">
+          <input type="checkbox" ng-change="vm.checkMe()" ng-model="vm.me.status"/>
+        </div>
       </div>
       <div class="row height50" ng-repeat="guest in vm.guests">
         <div class="col-sm-2">Гість {{$index+2}}</div>

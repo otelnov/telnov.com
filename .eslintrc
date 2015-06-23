@@ -11,7 +11,8 @@
 
   "globals": {
     "$": 2,
-    "google": 2
+    "google": 2,
+    "angular": 2
   },
 
   "rules": {

@@ -28,6 +28,9 @@
     <li role="presentation" ng-class="{active: vm.activeMenu==='news'}">
       <a href ng-click="vm.activeNews()">Новини <span class="badge">{{vm.news.length}}</span></a>
     </li>
+    <li role="presentation" ng-class="{active: vm.activeMenu==='mail'}">
+      <a href ng-click="vm.activeMail()">Надіслати листа <span class="badge">@</span></a>
+    </li>
   </ul>
 
 
@@ -72,7 +75,7 @@
         {{guest.guests.length+1}}
       </div>
       <div class="col-md-3">
-        <p>{{guest.name}}</p>
+        <p>{{guest.name}} - {{guest.status}}</p>
         <p ng-repeat="g in guest.guests">{{g.name}} - {{g.status}}</p>
       </div>
       <div class="col-md-2">
@@ -185,6 +188,30 @@
         <button class="btn btn-danger" ng-click="vm.removeNews(news, $index)">
           <span class="glyphicon glyphicon-trash"></span>
         </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="admin-mail" ng-if="vm.activeMenu==='mail'">
+    <h2>Надіслати email (усім)</h2>
+
+    <div class="row">
+      <div class="col-md-5">
+        <input class="form-control" placeholder="Тема" ng-model="vm.mailSubject" />
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-5">
+        <textarea class="form-control" placeholder="Текст листа" rows="8"
+                  ng-model="vm.mailBody"></textarea>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-2">
+        <buttom ng-click="vm.sendMail()" class="btn btn-primary">Надіслати</buttom>
       </div>
     </div>
 

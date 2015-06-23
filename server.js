@@ -15,7 +15,11 @@ app.use(gzipStatic('./www', {index: 'index.html', maxAge: 24 * 60 * 60 * 1000}))
 app.use(cors());
 app.use(bodyParser.json());
 app.use(expressJwt({secret: jwtSecret}).unless({
-  path: ['/api/users/register', '/api/users/login']
+  path: [
+    '/api/users/register',
+    '/api/users/login',
+    '/api/football'
+  ]
 }));
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {

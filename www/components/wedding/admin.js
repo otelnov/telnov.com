@@ -103,6 +103,18 @@ export default ngModule => {
           };
         });
       };
+
+      vm.activeMail = ()=> {
+        vm.activeMenu = 'mail';
+        vm.sendMail = ()=> {
+          let text = vm.mailBody;
+          let subj = vm.mailSubject;
+          vm.mailBody = vm.mailSubject = '';
+          weddingFactory.mail({text: text, subject: subj}, () => {
+            alert('Повідомлення надіслані');
+          });
+        };
+      };
     }
   ]);
 };

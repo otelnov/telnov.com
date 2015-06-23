@@ -6,4 +6,5 @@ module.exports = function () {
 	require('./news')();
 	require('./comments')();
 	require('./wishlist')();
+	require('./football')();
 };

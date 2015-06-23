@@ -54,7 +54,7 @@ export default ngModule => {
 
   ngModule.controller('weddingMainController', [
     'AuthTokenFactory', '$state', 'WeddingFactory', '$window',
-    function (authTokenFactory, $state, weddengFactory, $window) {
+    function (authTokenFactory, $state, weddingFactory, $window) {
       let vm = this;
 
       //govnokod
@@ -64,7 +64,7 @@ export default ngModule => {
         $window.scrollTo(0, 0);
       };
 
-      weddengFactory.current((error, current) => {
+      weddingFactory.current((error, current) => {
         vm.guests = current.guests;
         vm.me = current;
 
@@ -75,41 +75,46 @@ export default ngModule => {
 
         vm.addPerson = function () {
           vm.showAddPerson = false;
-          weddengFactory.put('/users/addPerson', {name: vm.newPersonName, status: true}, function () {
+          weddingFactory.put('/users/addPerson', {name: vm.newPersonName, status: true}, function () {
             vm.guests.push({name: vm.newPersonName, status: true});
             vm.newPersonName = '';
           });
         };
 
         vm.checkPerson = function (user) {
-          weddengFactory.put('/users/checkPerson', user, function () {
+          weddingFactory.put('/users/checkPerson', user, function () {
+          });
+        };
+
+        vm.checkMe = function () {
+          weddingFactory.put('/users/checkMe', {status: vm.me.status}, function () {
           });
         };
 
         vm.removePerson = function (user, index) {
           if (confirm('точно видалити ' + user.name + '?')) {
             vm.guests.splice(index, 1);
-            weddengFactory.put('/users/removePerson', {guests: vm.guests}, function () {
+            weddingFactory.put('/users/removePerson', {guests: vm.guests}, function () {
             });
           }
         };
 
         vm.addComment = function () {
-          weddengFactory.post('comments', {text: vm.userComment}, function () {
+          weddingFactory.post('comments', {text: vm.userComment}, function () {
             vm.userComment = '';
             alert('Дякуємо');
           });
         };
 
-        weddengFactory.get('news', function (err, data) {
+        weddingFactory.get('news', function (err, data) {
           vm.news = data.news;
         });
 
-        weddengFactory.get('help', function (err, data) {
+        weddingFactory.get('help', function (err, data) {
           vm.help = data.help;
         });
 
-        weddengFactory.get('wishlist', function (err, data) {
+        weddingFactory.get('wishlist', function (err, data) {
           vm.wishlist = data.wishlist;
 
           vm.wishlist.forEach(function (w) {
@@ -121,7 +126,7 @@ export default ngModule => {
           wish.status = wish.status;
           wish.user = wish.status ? vm.me._id : null;
           wish.my = wish.status;
-          weddengFactory.put('/wishlist/checkWish', wish, function () {
+          weddingFactory.put('/wishlist/checkWish', wish, function () {
 
           });
         };

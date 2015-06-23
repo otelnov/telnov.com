@@ -17,7 +17,8 @@ module.exports = {
 
   entry: {
     common: ['bootstrapCSS', 'bootstrapJS', 'angular', 'ajquery', 'affix', 'angular-ui-router', 'oclazyload', './app.js'],
-    wedding: './components/wedding'
+    wedding: './components/wedding',
+    football: './components/football'
   },
   output: {
     path: path.join(__dirname, '/www/build'),
@@ -26,6 +27,12 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      /*eslint-disable */
+      ON_DEV: process.env.NODE_ENV !== 'production',
+      ON_PROD: process.env.NODE_ENV === 'production'
+      /*eslint-enable */
+    }),
     new webpack.optimize.CommonsChunkPlugin('common', 'common.bundle.js'),
     new webpack.ProvidePlugin({
       $: 'jquery',
