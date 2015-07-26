@@ -1,3 +1,8 @@
+require('bootstrapCSS');
+require('bootstrapJS');
+require('ajquery');
+require('affix');
+
 let angular = require('angular');
 let ngModule = angular.module('tc', [
   'ui.router',
@@ -34,10 +39,10 @@ ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$loca
         url: '/wedding',
         template: '<wedding-main></wedding-main>',
         resolve: {
-          user: ['$http', 'config', '$state', ($http, config, $state)=> {
+          user: ['$http', 'config', '$state', ($http, config, $state) => {
             return $http.get(config.apiUrl + '/users/current').then(
-              ()=> null, ()=> $state.go('wedding.auth')
-            );
+              () => null, () => $state.go('wedding.auth')
+              );
           }]
         }
       })
@@ -45,11 +50,11 @@ ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$loca
         url: '/wedding/auth',
         template: '<wedding-auth></wedding-auth>',
         resolve: {
-          user: ['$http', 'config', '$state', ($http, config, $state)=> {
+          user: ['$http', 'config', '$state', ($http, config, $state) => {
             return $http.get(config.apiUrl + '/users/current').then(
-              ()=> $state.go('wedding.main'),
-              ()=> null
-            );
+              () => $state.go('wedding.main'),
+              () => null
+              );
           }]
         }
       })
@@ -57,19 +62,20 @@ ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$loca
         url: '/wedding/admin',
         template: '<wedding-admin></wedding-admin>',
         resolve: {
-          user: ['$http', 'config', '$state', ($http, config, $state)=> {
+          user: ['$http', 'config', '$state', ($http, config, $state) => {
             return $http.get(config.apiUrl + '/users/current').then(
-                response=> {
+              response=> {
 
                 if (response && response.data && response.data.isAdmin) {
                   return;
                 }
                 $state.go('wedding.main');
-              }, ()=> $state.go('wedding.auth')
-            );
+              }, () => $state.go('wedding.auth')
+              );
           }]
         }
       })
+
       .state('football', {
         abstract: true,
         template: require('./components/football/layout.html'),
@@ -80,57 +86,34 @@ ngModule.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$loca
       .state('football.main', {
         url: '/football',
         template: '<football-main></football-main>'
-        //resolve: {
-        //  user: ['$http', 'config', '$state', ($http, config, $state)=> {
-        //    return $http.get(config.apiUrl + '/users/current').then(
-        //      ()=> null, ()=> $state.go('wedding.auth')
-        //    );
-        //  }]
-        //}
+      })
+
+      .state('pebble', {
+        abstract: true,
+        template: require('./components/pebble/layout.html'),
+        resolve: {
+          lazy: ['$ocLazyLoad', $ocLazyLoad => $ocLazyLoad.load('./build/pebble.bundle.js')]
+        }
+      })
+      .state('pebble.settings', {
+        url: '/pebble/settings',
+        template: '<pebble-settings></pebble-settings>'
+      })
+      .state('pebble.register', {
+        url: '/pebble/register',
+        template: '<pebble-register></pebble-register>'
+      })
+      .state('pebble.notes', {
+        url: '/pebble/notes',
+        template: '<pebble-notes></pebble-notes>'
       });
   }
 ]);
 
-ngModule.factory('AuthTokenFactory', ['$window', ($window) => {
-  let store = $window.localStorage;
-  let key = 'auth-token';
-
-  return {
-    getToken: ()=>store.getItem(key),
-    setToken: token=> {
-      if (token) {
-        store.setItem(key, token);
-      } else {
-        store.removeItem(key);
-      }
-    }
-  };
-}]);
-
-ngModule.factory('AuthInterceptor', ['AuthTokenFactory', (AuthTokenFactory) => {
-  return {
-    request: config=> {
-      let token = AuthTokenFactory.getToken();
-
-      if (token) {
-        config.headers = config.headers || {};
-        config.headers.Authorization = 'Bearer ' + token;
-      }
-      return config;
-    }
-  };
-}]);
+require('./components/shared')(ngModule);
 
 let conf = {};
-/*eslint-disable */
-if (ON_DEV) {
-  conf.apiUrl = 'http://localhost:1488/api';
-}
-
-if (ON_PROD) {
-  conf.apiUrl = 'http://telnov.com/api';
-}
-/*eslint-enable */
+conf.apiUrl = ON_PROD ? 'http://telnov.com/api' : 'http://71320035.ngrok.io/api';
 ngModule.constant('config', conf);
 
 angular.bootstrap(document, ['tc']);

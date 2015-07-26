@@ -16,9 +16,10 @@ module.exports = {
   },
 
   entry: {
-    common: ['bootstrapCSS', 'bootstrapJS', 'angular', 'ajquery', 'affix', 'angular-ui-router', 'oclazyload', './app.js'],
+    common: ['angular', 'angular-ui-router', 'oclazyload', './app.js'],
     wedding: './components/wedding',
-    football: './components/football'
+    football: './components/football',
+    pebble: './components/pebble'
   },
   output: {
     path: path.join(__dirname, '/www/build'),

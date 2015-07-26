@@ -41,9 +41,9 @@ export default ngModule => {
                   map: map,
                   title: address
                 });
-
+                console.log(infowindow, marker);
               } else {
-                //alert('No results found');
+                console.log('No results found');
               }
             }
           });

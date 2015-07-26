@@ -18,7 +18,9 @@ app.use(expressJwt({secret: jwtSecret}).unless({
   path: [
     '/api/users/register',
     '/api/users/login',
-    '/api/football'
+    '/api/football',
+    '/api/pebble/login',
+    '/api/pebble/register'
   ]
 }));
 app.use(function (err, req, res, next) {

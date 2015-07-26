@@ -14,9 +14,3 @@ module.exports = function () {
 
   mongoose.model('Help', HelpSchema, 'Help');
 };
-
-
-
-
-
-

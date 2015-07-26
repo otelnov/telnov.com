@@ -1,0 +1,44 @@
+<div class="pebble-settings" ng-if="vm.isReady">
+  <form ng-submit="vm.login()" ng-if="!vm.loggedIn">
+    <div>
+      <input type="text" ng-model="vm.model.username" placeholder="Username"/>
+    </div>
+    <br/>
+
+    <div>
+      <input type="password" ng-model="vm.model.password" placeholder="Password"/>
+    </div>
+    <br/>
+
+    <div>
+      <button type="submit">Login</button>
+    </div>
+  </form>
+  <div ng-if="vm.loggedIn">
+    Logged in as {{vm.current.username}}
+    <br/><br/>
+    <button ng-click="vm.logout()">Logout</button>
+  </div>
+</div>
+
+<div class="loader" ng-if="!vm.isReady">
+  <div id="circularG">
+    <div id="circularG_1" class="circularG">
+    </div>
+    <div id="circularG_2" class="circularG">
+    </div>
+    <div id="circularG_3" class="circularG">
+    </div>
+    <div id="circularG_4" class="circularG">
+    </div>
+    <div id="circularG_5" class="circularG">
+    </div>
+    <div id="circularG_6" class="circularG">
+    </div>
+    <div id="circularG_7" class="circularG">
+    </div>
+    <div id="circularG_8" class="circularG">
+    </div>
+  </div>
+</div>
+

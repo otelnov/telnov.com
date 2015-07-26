@@ -7,4 +7,5 @@ module.exports = function (app) {
 	require('./comments')(app);
 	require('./wishlist')(app);
 	require('./football')(app);
+	require('./pebble')(app);
 };

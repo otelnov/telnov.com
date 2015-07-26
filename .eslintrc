@@ -12,7 +12,8 @@
   "globals": {
     "$": 2,
     "google": 2,
-    "angular": 2
+    "angular": 2,
+    "ON_PROD": 2
   },
 
   "rules": {
